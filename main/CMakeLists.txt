@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.24)
+
+project(gameSapper VERSION 0.1 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-D_DEBUG)
+endif()
+
+file(GLOB SOURCES   ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+file(GLOB HEADERS   ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
+
+set(PROJECT_SOURCES
+        ${SOURCES}
+        ${HEADERS}
+)
+
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+install(TARGETS ${PROJECT_NAME}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
